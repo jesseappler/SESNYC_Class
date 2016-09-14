@@ -6,51 +6,73 @@ vals2 <- seq(from = 100,
           to = 1)
 ## Vectors
 
-counts ...
+counts <- c(4,3,7,5)
+
 
 ## Lists
 
-... <- list(...)
-... <- ...(list(1, 2), c(3, 4))
+x <- list(list(1,2), c(3,4))
+y <- c(list(1, 2), c(3, 4))
 
 ## Factors
 
-education <- ...(c("college", "highschool", "college", "middle"),
-                 ... = c("middle", "highschool", ...),
-                 ...)
+education <- factor(c("college", "highschool", "college", "middle"),
+                 levels = c("middle", "highschool", "college", "graduate"),
+                 ordered = TRUE)
+
+## IDing levels and ordered changes to make sure it's represented in the order you want it
 
 ## Data Frames
 
-... data.frame(...)
+df <- data.frame(education,counts)
 
 ## Exercise 1
 
-...
+species <- factor(c("bacteria","virus","fungus","animal","plant","plant","virus","bacteria"),
+                  levels = c("virus", "bacteria","fungus","plant","animal"),
+                  ordered = TRUE)
+
+count <- c(14,23,5,7,2,7,8,22)
+
+tally <- data.frame(species,count)
+
 
 ## Names
 
-names(...) <- ...
+names(df) <- c('ed','ct')
+
+df[3,"ct"]
+
+tally[-5,"species"]
 
 ## Subsetting ranges
 
 days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-weekdays <- ...
-...
+weekdays <- days[2:6]
+weekends <- days[c(1,7)]
 
 ## Exercise 2
 
-...
+weekdays2 <- days[c(-1,-7)]
+MWF <- days[seq(from=2,
+                to=6, 
+                by=2)]
+
+newrow <- list("fungus", 34)
+
 
 ## Anatomy of a function
 
-function(...) {
-  ...
-  return(...)
+first <- function(x) {
+  result <- x[1, 1]
+  return(result)
 }
+
+first(tally)
 
 ## Exercise 3
 
-...
+df[2:3, 1]
 
 ## Distributions and statistics
 
@@ -76,9 +98,11 @@ requirements <- c('dplyr',
                   'sp',
                   'tidyr',
                   'tmap')
-missing <- setdiff(...,
+missing <- setdiff(requirements,
                    rownames(installed.packages()))
 
-if (...) {
+length(missing) == 0
+
+if (length(missing) !=0) {
   install.packages(missing)
 }
