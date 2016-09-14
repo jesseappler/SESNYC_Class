@@ -1,10 +1,9 @@
 ## The Editor
 
-vals <- ...
+vals <- seq(1,100)
 
-vals <- seq(...,
-            ...)
-
+vals2 <- seq(from = 100,
+          to = 1)
 ## Vectors
 
 counts ...
