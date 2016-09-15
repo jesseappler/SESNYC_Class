@@ -63,7 +63,8 @@ ggplot(data = (surveys %>% filter(species_id == "DM")) ,
        aes(x = weight, fill = sex)) +
   geom_histogram(
              stat = "bin",
-             binwidth = 3)
+             binwidth = 3)+
+  scale_fill_manual(values = c("magenta", "darkblue"))
 
 ## Axes, labels and themes
 
