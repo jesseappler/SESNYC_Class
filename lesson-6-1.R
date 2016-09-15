@@ -1,8 +1,11 @@
 # User Interface
-... <- navbarPage(title = "Hello, Shiny World!")
+
+
+
+UI <- navbarPage(title = "Hello, Shiny World!")
 
 # Server
-... <- function(...){}
+SERVER <- function(input, output){}
 
 # Create the Shiny App
-shinyApp(...)
+shinyApp(ui = UI, server = SERVER)
