@@ -13,7 +13,7 @@ in1 <- selectInput("pick_species",
                    choices = unique(species[["species_id"]]))
 out2 <- plotOutput("species_plot")
 out3 <- textOutput("species_name")
-tab <- tabPanel("Species", in1, out2, out3)
+tab <- tabPanel("Species", out2, out3, in1)
 ui <- navbarPage(title = "Portal Project", tab)
 
 # Server
