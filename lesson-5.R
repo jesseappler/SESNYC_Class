@@ -1,63 +1,57 @@
 ## Libraries and data
+install.packages("ggplot2", dependencies = TRUE)
 
 library(dplyr)
-library(...)
-surveys <- read.csv(..., na.strings = "") %>%
+library(ggplot2)
+surveys <- read.csv("data/surveys.csv", na.strings = "") %>%
   filter(!is.na(species_id), !is.na(sex), !is.na(weight))
 
 ## Constructing layered graphics in ggplot
 
-ggplot(...,
-       ...) +
-  ...
+ggplot(data = surveys,
+       aes(x = species_id, y = weight)) +
+  geom_point()
+
+head(surveys)
 
 ggplot(data = surveys,
        aes(x = species_id, y = weight)) +
-  ...
-  geom_point(...,
-             ...,
-             ...)
+  geom_boxplot()+
+  geom_point(stat = "summary",
+             fun.y = "mean",
+             color = "red")
 
 ## Exercise 1
 
-...
+ggplot(data = (surveys %>% filter(species_id == "DM")) ,
+       aes(x = year, y = weight, color = factor(sex))) +
+  geom_point(stat = "summary",
+             fun.y = "mean")
+             
 
 ## Adding a regression line
 
 levels(surveys$sex) <- c("Female", "Male")
-surveys_dm <- filter(surveys, ...)
-ggplot(...,
-       aes(x = year, y = weight)) +
-  geom_point(...,
+ggplot(data = (surveys %>% filter(species_id == "DM")) ,
+       aes(x = year, y = weight, color = sex)) +
+  geom_point(aes(shape = sex),
              size = 3,
-             stat = "summary",
-             fun.y = "mean") +
-  ...
+              stat = "summary",
+              fun.y = "mean")+
+  geom_smooth(method = "lm")
 
-ggplot(data = surveys_dm,
-       aes(...,
-           ...,
-           ...)) +
+
+year_wgt <- ggplot(data = (surveys %>% filter(species_id == "DM")) ,
+       aes(x = year, y = weight, color = sex)) +
   geom_point(aes(shape = sex),
              size = 3,
              stat = "summary",
-             fun.y = "mean") +
+             fun.y = "mean")+
   geom_smooth(method = "lm")
 
-# Storing and re-plotting
-
-year_wgt <- ggplot(data = surveys_dm,
-                   aes(x = year,
-                       y = weight,
-                       color = sex)) +
-  geom_point(aes(shape = sex),
-             size = 3,
-             stat = "summary",
-             fun.y = "mean") +
-  geom_smooth(method = "lm")
 
 year_wgt +
-  ...
+  scale_color_manual(values = c("magenta", "darkblue"))
                      
 year_wgt <- year_wgt +
   scale_color_manual(...)
@@ -65,7 +59,11 @@ year_wgt
 
 ## Exercise 2
 
-...
+ggplot(data = (surveys %>% filter(species_id == "DM")) ,
+       aes(x = weight, fill = sex)) +
+  geom_histogram(
+             stat = "bin",
+             binwidth = 3)
 
 ## Axes, labels and themes
 
