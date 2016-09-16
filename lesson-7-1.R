@@ -1,17 +1,18 @@
 # Reading shapefiles into R
 
 library(rgdal)
+library(dplyr)
 
-counties_md <- readOGR(..., ...)
+summary(counties_md)
 
 
 # Basic spatial plots
 
-plot(...)
+plot(counties_md)
 
-howard <- counties_md[..., ]
-plot(howard, ..., ...)
-text(..., ... = counties_md[["NAME"]], cex = ...)
+howard <- counties_md[counties_md[["NAME"]] == "Howard", ]
+plot(howard, add = TRUE, col = "red")
+text(coordinates(counties_md), labels = counties_md[["NAME"]], cex = 0.5)
 
 # Exercise
 
@@ -19,8 +20,10 @@ text(..., ... = counties_md[["NAME"]], cex = ...)
 #  the smallest (1) to largest (24) in land area ("ALAND" attribute). 
 # Hint: Use `rank(x)` to get ranks from a numeric vector x.
 
-...
+plot(counties_md)
 
+text(coordinates(counties_md), labels = (counties_md[["ALAND"]] %>% rank()), cex = 0.7)
+text(coordinates(counties_md), labels = counties_md[["NAME"]], cex = 0.5, col = "purple")
 
 # Reading rasters into R
 
