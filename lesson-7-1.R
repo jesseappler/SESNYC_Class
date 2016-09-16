@@ -47,12 +47,18 @@ plot(nlcd)
 plot(counties_proj, add = TRUE)
 
 
-# Masking a raster
+# Masking a raster to change some of info to NA
 
-pasture <- mask(nlcd, ..., maskvalue = ...)
-plot(...)
+pasture <- mask(nlcd, nlcd == 81, maskvalue = FALSE)
+plot(pasture)
+plot(counties_proj, add = TRUE)
 
 # Exercise
+
+wetlands <- mask(nlcd, nlcd == 95, maskvalue = FALSE)
+plot(wetlands)
+plot(counties_proj, add = TRUE)
+
 
 # Create a mask for a different land cover class. 
 #  Look up the numeric ID for a specific class in attr_table.
