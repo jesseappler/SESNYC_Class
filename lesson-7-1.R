@@ -22,28 +22,29 @@ text(coordinates(counties_md), labels = counties_md[["NAME"]], cex = 0.5)
 
 plot(counties_md)
 
-text(coordinates(counties_md), labels = (counties_md[["ALAND"]] %>% rank()), cex = 0.7)
-text(coordinates(counties_md), labels = counties_md[["NAME"]], cex = 0.5, col = "purple")
+text(coordinates(counties_md), labels = (counties_md[["ALAND"]] %>% rank()), col = "gray", cex = 0.7)
+text(coordinates(counties_md), labels = counties_md[["NAME"]], cex = 0.5, col = "purple", pos = 1)
 
 # Reading rasters into R
 
 library(raster)
 
-nlcd <- raster(...)
+nlcd <- raster("data/nlcd_agg.grd")
 
-plot(...)
+plot(nlcd)
 
-... <- nlcd@data@attributes[[1]]
+attr_table <- nlcd@data@attributes[[1]]
 
 
 # Change projections
 
-proj4string(...)
+proj4string(counties_md)
+proj4string(nlcd)
 
-counties_proj <- spTransform(..., proj4string(...))
+counties_proj <- spTransform(counties_md, proj4string(nlcd))
 
 plot(nlcd)
-plot(..., ...)
+plot(counties_proj, add = TRUE)
 
 
 # Masking a raster
